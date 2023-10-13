@@ -1,0 +1,102 @@
+.create-layout-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 10px;
+  height: 50px; // prevent layout shifting
+  border-bottom: 1px solid lightgray;
+
+  .left-side {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-right: auto;
+
+    .app-title {
+      font-size: 32px;
+      line-height: 1;
+      text-transform: uppercase;
+      font-weight: bold;
+      letter-spacing: .5px;
+      font-family: 'Work Sans', Arial, sans-serif;
+      cursor: default;
+      user-select: none;
+
+      > a {
+        color: black;
+        text-decoration: none;
+
+        body.hell-layout & {
+          color: white;
+        }
+      }
+    }
+  }
+
+  .right-side {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    > .difficulty {
+      display: inline-block;
+      margin-right: 12px;
+      font-size: 14px;
+      line-height: 20px;
+      text-transform: uppercase;
+      font-weight: bold;
+      letter-spacing: .5px;
+
+      body.hell-layout & {
+        color: white;
+      }
+    }
+
+    > select {
+      width: 100px;
+      padding: 6px 12px;
+      border: none;
+      border-radius: 8px;
+      border: 2px solid lightgray;
+      color: black;
+      font-size: 15px;
+      height: 36px;
+      letter-spacing: .5px;
+
+      &:focus {
+        outline: 3px solid #0b7bf4;
+      }
+
+      option {
+        letter-spacing: .5px;
+        padding: 2px 4px;
+        background-color: lightgray;
+      }
+    }
+
+    > .new-game-btn {
+      background: linear-gradient(-45deg, #4d0081, #4714f4, #f40b36, #0b7bf4);
+      background-size: 400% 400%;
+      animation: shifting-gradient 8s ease-in-out infinite;
+      text-transform: uppercase;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      padding: 6px 16px;
+      margin-left: 10px;
+      letter-spacing: 1px;
+      height: 36px;
+      user-select: none;
+
+      &:active {
+        position: relative;
+        top: 1px;
+      }
+
+      &:focus {
+        outline: 3px solid #0b7bf4;
+      }
+    }
+  }
+}

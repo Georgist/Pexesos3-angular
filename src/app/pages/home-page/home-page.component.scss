@@ -1,0 +1,62 @@
+@use "../../../sass/partials/animations" as *;
+
+.game-modes-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 150px;
+
+  > .label {
+    color: #000;
+    text-transform: uppercase;
+    font-size: 15px;
+    letter-spacing: .5px;
+    line-height: 20px;
+    font-weight: bold;
+    text-align: center;
+    display: block;
+    width: 100%;
+    margin-bottom: 30px;
+  }
+
+  > .game-modes {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+    user-select: none;
+
+    > a {
+      display: flex;
+      flex: 1;
+      align-items: center;
+      justify-content: center;
+      border-radius: 16px;
+      padding: 55px 20px;
+      background: linear-gradient(-45deg, #4d0081, #4714f4, #f40b36, #0b7bf4);
+      background-size: 500% 500%;
+      transition: box-shadow 0.3s;
+
+      &:hover {
+        box-shadow: 0px 0px 10px #4e4e4e;
+        animation: shifting-gradient 3s ease-in-out infinite;
+      }
+
+      &.disabled {
+        filter: grayscale(1);
+        pointer-events: none;
+        opacity: 0.4;
+      }
+
+      > span {
+        font-size: 24px;
+        line-height: 1.2;
+        font-weight: bold;
+        text-transform: capitalize;
+        letter-spacing: .5px;
+        color: rgba(255, 255, 255, 1);
+        text-shadow: 0px 0px 2px black;
+      }
+    }
+  }
+}

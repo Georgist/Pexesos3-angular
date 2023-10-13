@@ -1,0 +1,42 @@
+@use "../../../sass/partials/mixins" as *;
+
+.game-info-panel {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+  padding: 8px 0;
+  margin-bottom: 20px;
+  border-bottom: 1px solid lightgray;
+
+  > span {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: .4px;
+
+    body & {
+      @include extend('body', '.hell-layout') {
+        color: white;
+      }
+    }
+
+    > .value {
+      font-size: 14px;
+      font-weight: bold;
+      letter-spacing: .7px;
+    }
+  }
+
+  .time-counter {
+
+  }
+  .time-countdown {
+
+  }
+  .moves-counter {
+
+  }
+  .moves-countdown {
+
+  }
+}

@@ -1,0 +1,21 @@
+<ul class="pex-tiles">
+  <li
+    *ngFor="let item of tilesService.pexData; let index = index;"
+    class="pex-item"
+    data-clicked="false"
+    [attr.data-id]="item.id"
+    [attr.data-pair-value]="item.pairValue"
+    (click)="pairBoxes($event.currentTarget)"
+  >
+    <div class="pex-item-face front-face">
+      <span class="front-face-inner">
+          <span class="title">PEX</span>
+          <span class="index">{{ index + 1 }}</span>
+      </span>
+    </div>
+    <div class="pex-item-face back-face">
+      <img [src]="item.imageUrl"/>
+      <span class="hell-layout-pair-value">{{ item.pairValue.substring(0, 3)}}</span>
+    </div>
+  </li>
+</ul>

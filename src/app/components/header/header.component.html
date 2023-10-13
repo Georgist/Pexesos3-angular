@@ -1,0 +1,25 @@
+<div class="create-layout-wrapper">
+  <div class="left-side">
+    <h1 class="app-title">
+      <a href="/">Pexesos</a>
+    </h1>
+  </div>
+  <div
+    *ngIf="headerService.headerAdditionalContent"
+    class="right-side"
+  >
+    <span class="difficulty">Difficulty:</span>
+    <select autofocus #difficultySelect>
+      <option value="12">Easy</option>
+      <option value="24">Medium</option>
+      <option value="400">Hell</option>
+    </select>
+
+    <button
+      class="new-game-btn"
+      (click)="createNewTiles($event)"
+    >
+      Start a new game
+    </button>
+  </div>
+</div>

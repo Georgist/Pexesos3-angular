@@ -1,0 +1,31 @@
+@use "../../sass/partials/functions" as *;
+
+// from SPOT CSS framework
+// @author Johnny Seyd (johnnyseyd@gmail.com)
+// @link https://github.com/seyd/spot-css
+@mixin extend($something, $extension) {
+  @at-root #{extend(&, $something, $extension)} {
+    @content;
+  }
+}
+
+// Add selector specificity at element level.
+@mixin add-element-specificity($n) {
+  @at-root #{add-element-specificity(&, $n)} {
+    @content;
+  }
+}
+
+// Add selector specificity at class level.
+@mixin add-class-specificity($n) {
+  @at-root #{add-class-specificity(&, $n)} {
+    @content;
+  }
+}
+
+// Add selector specificity at id level.
+@mixin add-id-specificity($n) {
+  @at-root #{add-id-specificity(&, $n)} {
+    @content;
+  }
+}

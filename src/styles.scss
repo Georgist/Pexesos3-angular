@@ -1,1 +1,82 @@
-/* You can add global styles to this file, and also import other style files */
+@use "sass/partials/functions" as *;
+@use "sass/partials/mixins" as *;
+@use "sass/partials/animations" as *;
+@use "sass/partials/base" as *;
+
+html {
+  height: 100%;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  position: relative;
+  line-height: 1;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100%;
+  background-color: rgba(255, 255, 255, 0.7);
+
+  &.hell-layout {
+    background: url(assets/images/x1.webp);
+  }
+
+  &::before {
+      display: none;
+
+      @include extend('body', '.hell-layout') {
+        display: block;
+        content: '';
+        position: absolute;
+        inset: 0 0 0 0;
+        pointer-events: none;
+        background-color: rgba(0, 0, 0, 0.55);
+        z-index: -1;
+      }
+  }
+}
+
+.page-wrapper {
+  max-width: 1000px;
+  margin: 0 auto;
+  height: auto;
+  padding: 20px 10px 40px;
+}
+
+/*import { createApi } from "./unsplash-js";
+
+import nodeFetch from './node-fetch';
+
+const unsplashAPI = createApi({
+    accessKey: 'knJ-dWwE3NuTuXTLmPlhlv9AsQytlb57-js_WfDBs_Y',
+    fetch: nodeFetch,
+});*/
+
+// PEXESO
+//DONE create grid responsive layout of box items, 8 items in a row
+//DONE make each item flip on click with a picture on the back side
+//DONE each item needs to be generated through JS (or find some template engine??)
+//DONE each item has unique ID or name or number (data- attribute)
+//DONE there are pairs of items with the same ID
+//DONE if on click they match, they get "matched" class permanently
+//DONE get data attribute and by ID change the array of items(pexItems), wasChecked: true
+
+// Solution to generating the same IDs:
+//DONE generate array and duplicate it and then combine into two arrays
+
+//DONE create new data (createPexData())
+//DONE put it into array, twice as pairs
+//DONE shuffle the array
+//DONE set it into localStorage
+
+//Pseudo code for pexeso, 3 important methods:
+//DONE 1. When item is clicked, change isVisited(first visit) and isActive properties in an object (ONLY FOR ONE ITEM)
+//DONE 2. When they match, add isMatched for both (FOR MULTIPLE ITEMS)
+//NOT 3. When they DONT MATCH, change isActive for both (FOR MULTIPLE ITEMS)
+
+// LATER ======
+// Counter of pairs
+// Counter of moves
+// Timer
+// Turns? (against computer)
+// Points?

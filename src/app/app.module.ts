@@ -3,16 +3,34 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { ClassicGamePageComponent } from './pages/classic-game-page/classic-game-page.component';
+import { SpeedrunGamePageComponent } from './pages/speedrun-game-page/speedrun-game-page.component';
+import { PayToWinGamePageComponent } from './pages/pay-to-win-game-page/pay-to-win-game-page.component';
+import { HeaderComponent } from './components/header/header.component';
+import { HomePageComponent } from './pages/home-page/home-page.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { TilesComponent } from './components/tiles/tiles.component';
+import { GameInfoPanelComponent } from './components/game-info-panel/game-info-panel.component';
+import { TipInfoPanelComponent } from './components/tip-info-panel/tip-info-panel.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ClassicGamePageComponent,
+    SpeedrunGamePageComponent,
+    PayToWinGamePageComponent,
+    HeaderComponent,
+    HomePageComponent,
+    FooterComponent,
+    TilesComponent,
+    GameInfoPanelComponent,
+    TipInfoPanelComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent, HeaderComponent]
 })
 export class AppModule { }
