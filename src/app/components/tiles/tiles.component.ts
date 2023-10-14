@@ -14,9 +14,16 @@ import {AppComponentService} from "../../services/app.component.service";
 export class TilesComponent implements OnInit {
   successSound = new Audio('assets/sounds/success-effect.mp3');
   fanfareSound = new Audio('assets/sounds/fanfare-effect-2.mp3');
-  cardFlipSound = new Audio('assets/sounds/pop-effect.mp3');
+  cardFlipSound: any = [];
 
-  constructor(public tilesService: TilesService, public appComponentService: AppComponentService) {}
+  constructor(public tilesService: TilesService, public headerService: HeaderService, public appComponentService: AppComponentService) {
+    this.cardFlipSound[0] = new Audio();
+    this.cardFlipSound[0].src = 'assets/sounds/pop-effect.mp3';
+    this.cardFlipSound[1] = new Audio();
+    this.cardFlipSound[1].src = 'assets/sounds/arrow-wood-effect.mp3';
+    this.cardFlipSound[2] = new Audio();
+    this.cardFlipSound[2].src = 'assets/sounds/card-flip-effect.mp3';
+  }
 
   ngOnInit() {}
 
@@ -75,8 +82,9 @@ export class TilesComponent implements OnInit {
 
   pairBoxes(item: any) { // TODO improve type in the future
     this.appComponentService.gameIsTouched = true;
-    this.cardFlipSound.volume = .6;
-    this.cardFlipSound.play();
+    this.cardFlipSound[this.headerService.selectFlipSound].volume = .65;
+    this.cardFlipSound[this.headerService.selectFlipSound].play();
+    this.tilesService.movesCounter();
 
     if(item === null) {
       return;

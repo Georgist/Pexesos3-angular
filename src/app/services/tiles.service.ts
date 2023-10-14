@@ -9,6 +9,8 @@ import {AppComponentService} from "./app.component.service";
 })
 export class TilesService {
   timerDisplay: any;
+  movesDisplay = 0;
+  movesCounterPair: string[] = [];
 
   // TODO add more images (unsplash)
   gameBasicImages: string[] = [
@@ -20,7 +22,23 @@ export class TilesService {
     'assets/images/6.jpg'
   ];
 
+  gameDifficultyMediumImages: string[] = [
+    'assets/images/medium/1.jpg',
+    'assets/images/medium/2.jpg',
+    'assets/images/medium/3.jpg',
+    'assets/images/medium/4.jpg',
+    'assets/images/medium/5.jpg',
+    'assets/images/medium/6.jpg',
+    'assets/images/medium/7.jpg',
+    'assets/images/medium/8.jpg',
+    'assets/images/medium/9.jpg',
+    'assets/images/medium/10.jpg',
+    'assets/images/medium/11.jpg',
+    'assets/images/medium/12.jpg'
+  ];
+
   gameDifficultyHellImages = 'assets/images/f3.gif';
+
   pexData: PexItem[] = [];
   allPairs: string[] = [];
   currentPair: PexCurrentPair[] = [];
@@ -33,6 +51,7 @@ export class TilesService {
     this.pexData = [];
     this.currentPair = [];
     this.allPairs = [];
+    this.movesDisplay = 0;
     this.appComponentService.gameIsTouched = false;
     this.renderer.removeClass(document.body, 'hell-layout');
     this.renderer.removeClass(document.body, 'medium-layout');
@@ -46,6 +65,8 @@ export class TilesService {
 
       if (currentDifficulty === this.headerService.gameDifficultyHell) {
         newPexDataItem = new pexItem(this.generateRandomID(), i, this.gameDifficultyHellImages);
+      } else if(currentDifficulty === this.headerService.gameDifficultyMedium) {
+        newPexDataItem = new pexItem(this.generateRandomID(), i, this.gameDifficultyMediumImages[i]);
       } else {
         newPexDataItem = new pexItem(this.generateRandomID(), i, this.gameBasicImages[i]);
       }
@@ -83,6 +104,15 @@ export class TilesService {
     }
     if (Number(currentDifficulty) === this.headerService.gameDifficultyMedium) {
       this.activateMediumDifficulty();
+    }
+  }
+
+  movesCounter() {
+    this.movesCounterPair.push('clicked');
+
+    if(this.movesCounterPair.length === 2) {
+      this.movesDisplay++;
+      this.movesCounterPair = [];
     }
   }
 

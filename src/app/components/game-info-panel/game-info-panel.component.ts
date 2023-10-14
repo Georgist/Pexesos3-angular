@@ -10,12 +10,11 @@ import {TilesService} from "../../services/tiles.service";
 })
 export class GameInfoPanelComponent {
   timeCounted = 0;
-  movesDisplay = 0;
   timerDisplay: any; // TODO
 
-  /*constructor(public tilesService: TilesService) {
-    this.tilesService.timerDisplay = this.timeCounter();
-  }*/
+  constructor(public tilesService: TilesService) {
+    //this.tilesService.timerDisplay = this.timeCounter();
+  }
 
  /* ngOnInit() {
     this.timeCounter();
@@ -41,8 +40,4 @@ export class GameInfoPanelComponent {
     };
   }*/
 
-  movesCounter() {
-    // add 1 count after every second move, click (in both cases, if pair or no pair)
-    // create array for two items, every time there are two items(means its full) add one count and clear array
-  }
 }
