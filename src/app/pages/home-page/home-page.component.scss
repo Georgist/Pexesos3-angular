@@ -46,6 +46,7 @@
         filter: grayscale(1);
         pointer-events: none;
         opacity: 0.4;
+        box-shadow: inset 0px 0px 4px 2px darkblue;
       }
 
       > span {

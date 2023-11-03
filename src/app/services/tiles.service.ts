@@ -1,4 +1,4 @@
-import {ElementRef, Injectable, Renderer2, ViewChild} from '@angular/core';
+import {Injectable, Renderer2} from '@angular/core';
 import {pexItem} from '../helpers/pex-data'
 import {HeaderService} from "./header.service";
 import {PexCurrentPair, PexItem} from "../components/tiles/tiles.types";
@@ -8,9 +8,13 @@ import {AppComponentService} from "./app.component.service";
   providedIn: 'root'
 })
 export class TilesService {
-  timerDisplay: any;
-  movesDisplay = 0;
-  movesCounterPair: string[] = [];
+  randomCardFlipSound!: string;
+
+  cardFlipSounds: string[] = [
+    'assets/sounds/pop-effect.mp3',
+    'assets/sounds/arrow-wood-effect.mp3',
+    'assets/sounds/card-flip-effect.mp3'
+  ];
 
   // TODO add more images (unsplash)
   gameBasicImages: string[] = [
@@ -51,8 +55,8 @@ export class TilesService {
     this.pexData = [];
     this.currentPair = [];
     this.allPairs = [];
-    this.movesDisplay = 0;
-    this.appComponentService.gameIsTouched = false;
+    this.appComponentService.resetGameIsTouched();
+    this.appComponentService.resetGameHasStarted();
     this.renderer.removeClass(document.body, 'hell-layout');
     this.renderer.removeClass(document.body, 'medium-layout');
   }
@@ -107,13 +111,11 @@ export class TilesService {
     }
   }
 
-  movesCounter() {
-    this.movesCounterPair.push('clicked');
+  randomCardFlipSoundFn() {
+    const randomIndex = Math.floor(Math.random() * this.cardFlipSounds.length);
+    const item = this.cardFlipSounds[randomIndex];
 
-    if(this.movesCounterPair.length === 2) {
-      this.movesDisplay++;
-      this.movesCounterPair = [];
-    }
+    return item;
   }
 
   // TODO can be separate directive or pipe??

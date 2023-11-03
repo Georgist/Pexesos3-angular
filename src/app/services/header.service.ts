@@ -28,8 +28,4 @@ export class HeaderService {
   set headerDifficultySelect(element) {
     this.headerDifficultySelectElem = element;
   }
-
-  get selectFlipSound() {
-    return Math.floor(Math.random() * 3);
-  }
 }

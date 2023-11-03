@@ -1,10 +1,10 @@
 <div class="game-info-panel">
   <!-- classic mode = Time counter and Moves -->
   <!--  <span class="time-counter">Time: <time class="value">00:49</time></span>-->
-  <span class="moves-counter">Moves: <span class="value">{{ tilesService.movesDisplay }}</span></span>
-<!--
-  <span class="time-counter">Time: <time class="value">{{ timerDisplay }}</time></span>
-  <span class="moves-counter">Moves: <span class="value">{{ movesDisplay }}</span></span>-->
+  <span class="moves-counter">Moves: <span class="value">{{ gameInfoPanelService.movesDisplay }}</span></span>
+
+  <span class="time-counter">Time: <time class="value">{{ gameInfoPanelService.timerDisplay }}</time></span>
+  <!--<span class="moves-counter">Moves: <span class="value">{{ movesDisplay }}</span></span>-->
 
   <!-- speed run = Time countdown and Moves countdown -->
 <!--  <span class="time-countdown">Time left: <time class="value">7:32</time></span>

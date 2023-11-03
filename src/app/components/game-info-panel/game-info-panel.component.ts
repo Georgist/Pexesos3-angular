@@ -1,6 +1,6 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
-import {timer} from "rxjs";
-import {TilesService} from "../../services/tiles.service";
+import {Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
+import {timer} from 'rxjs';
+import {GameInfoPanelService} from "./game-info-panel.service";
 
 @Component({
   selector: 'app-game-info-panel',
@@ -8,36 +8,46 @@ import {TilesService} from "../../services/tiles.service";
   styleUrls: ['./game-info-panel.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class GameInfoPanelComponent {
-  timeCounted = 0;
-  timerDisplay: any; // TODO
+export class GameInfoPanelComponent implements OnInit {
 
-  constructor(public tilesService: TilesService) {
-    //this.tilesService.timerDisplay = this.timeCounter();
+  constructor(public gameInfoPanelService: GameInfoPanelService) {}
+
+  ngOnInit() {
+    this.gameInfoPanelService.startTimer$.subscribe(() => {
+      this.timeCounter();
+    });
+
+    this.gameInfoPanelService.movesSubscription = this.gameInfoPanelService.movesDisplay$.subscribe(() => {
+      this.movesCounter();
+    });
   }
 
- /* ngOnInit() {
-    this.timeCounter();
-    console.log(this.timerDisplay);
+  movesCounter() {
+    this.gameInfoPanelService.movesCounterPair.push('clicked');
+
+    if(this.gameInfoPanelService.movesCounterPair.length === 2) {
+      this.gameInfoPanelService.movesDisplay++;
+      this.gameInfoPanelService.movesCounterPair = [];
+    }
   }
 
   timeCounter() {
-    timer(0, 1000).subscribe(ec => {
-      this.timeCounted++;
-      this.timerDisplay = this.getDisplayTimer(this.timeCounted);
+    this.gameInfoPanelService.timeCounted = 0;
+    this.gameInfoPanelService.timerDisplay = '00:00';
+
+    // TODO pause timer when modal is open
+
+    this.gameInfoPanelService.timerSubscription = timer(0, 1000).subscribe(ec => {
+      this.gameInfoPanelService.timeCounted++;
+      this.gameInfoPanelService.timerDisplay = this.getDisplayTimer(this.gameInfoPanelService.timeCounted);
     });
   }
 
   getDisplayTimer(time: number) {
-    const hours = '0' + Math.floor(time / 3600);
-    const minutes = '0' + Math.floor(time % 3600 / 60);
-    const seconds = '0' + Math.floor(time % 3600 % 60);
+    //const h = Math.floor(time / 3600).toString().padStart(2,'0'),
+    const m = Math.floor(time % 3600 / 60).toString().padStart(2,'0'),
+          s = Math.floor(time % 60).toString().padStart(2,'0');
 
-    return {
-      hours: { digit1: hours.slice(-2, -1), digit2: hours.slice(-1) },
-      minutes: { digit1: minutes.slice(-2, -1), digit2: minutes.slice(-1) },
-      seconds: { digit1: seconds.slice(-2, -1), digit2: seconds.slice(-1) },
-    };
-  }*/
-
+    return `${m}:${s}`;
+  }
 }

@@ -3,3 +3,86 @@
 <div class="main-content">
   <router-outlet></router-outlet>
 </div>
+
+<!-- New Game? Modal -->
+<app-modal
+  *ngIf="appComponentService.gameRestartValue"
+  (closeEvent)="appComponentService.hideRestartGameModal()"
+>
+  <ng-template #header>
+    <h1>New Game</h1>
+  </ng-template>
+  <ng-template #body>
+    <p>
+      Are you sure you want to start a new game?
+    </p>
+  </ng-template>
+  <ng-template #footer>
+    <button
+      class="primary-modal-btn"
+      (click)="okStartNewGame()"
+    >
+      Yes
+    </button>
+    <button
+      class="secondary-modal-btn"
+      (click)="appComponentService.hideRestartGameModal()"
+    >
+      No
+    </button>
+  </ng-template>
+</app-modal>
+
+<app-modal
+  *ngIf="appComponentService.gameIsWonValue"
+  (closeEvent)="appComponentService.hideWonModal()"
+>
+  <ng-template #header>
+    <h1>You Won!</h1>
+  </ng-template>
+  <ng-template #body>
+    <p>Well done, congratulations.</p>
+    <br>
+    <table>
+      <tr>
+        <th>Moves:</th>
+        <td>
+          <strong>{{ gameInfoPanelService.movesDisplay }}</strong>
+        </td>
+      </tr>
+      <!-- TODO stop or complete the observable for timerDisplay -->
+      <tr>
+        <th>Time:</th>
+        <td>
+          <strong>{{ gameInfoPanelService.timerDisplay }}</strong>
+        </td>
+      </tr>
+    </table>
+  </ng-template>
+  <ng-template #footer>
+    <button
+      class="primary-modal-btn"
+      (click)="appComponentService.hideWonModal()"
+    >
+      Thanks
+    </button>
+  </ng-template>
+</app-modal>
+
+<!-- LOST MODAL -->
+<!--
+<app-modal
+  *ngIf="appComponentService.lostGameModal"
+  (closeEvent)="appComponentService.hideLostModal()"
+>
+  <ng-template #header>
+    <h1>You Lost!</h1>
+  </ng-template>
+  <ng-template #body>
+    <p><strong>Game over. Try again.</strong></p>
+    <button (click)="appComponentService.hideLostModal()">
+      Okaaay...
+    </button>
+  </ng-template>
+</app-modal>
+-->

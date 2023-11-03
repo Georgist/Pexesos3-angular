@@ -2,8 +2,9 @@ import {AfterViewInit, Component, OnInit, Renderer2, ViewEncapsulation} from '@a
 import {TilesService} from "../../services/tiles.service";
 import {HeaderService} from "../../services/header.service";
 import {PexCurrentPair, PexItem} from "./tiles.types";
-import {Observable} from "rxjs";
+import {Observable, tap} from "rxjs";
 import {AppComponentService} from "../../services/app.component.service";
+import {GameInfoPanelService} from "../game-info-panel/game-info-panel.service";
 
 @Component({
   selector: 'app-tiles',
@@ -13,17 +14,9 @@ import {AppComponentService} from "../../services/app.component.service";
 })
 export class TilesComponent implements OnInit {
   successSound = new Audio('assets/sounds/success-effect.mp3');
-  fanfareSound = new Audio('assets/sounds/fanfare-effect-2.mp3');
-  cardFlipSound: any = [];
+  fanfareSound = new Audio('assets/sounds/fanfare-effect.mp3');
 
-  constructor(public tilesService: TilesService, public headerService: HeaderService, public appComponentService: AppComponentService) {
-    this.cardFlipSound[0] = new Audio();
-    this.cardFlipSound[0].src = 'assets/sounds/pop-effect.mp3';
-    this.cardFlipSound[1] = new Audio();
-    this.cardFlipSound[1].src = 'assets/sounds/arrow-wood-effect.mp3';
-    this.cardFlipSound[2] = new Audio();
-    this.cardFlipSound[2].src = 'assets/sounds/card-flip-effect.mp3';
-  }
+  constructor(public tilesService: TilesService, public gameInfoPanelService: GameInfoPanelService, public headerService: HeaderService, public appComponentService: AppComponentService) {}
 
   ngOnInit() {}
 
@@ -39,9 +32,10 @@ export class TilesComponent implements OnInit {
 
     if (matched) {
       setTimeout(() => {
+        // TODO fix sound when more items match in short time, play sound every time
         this.successSound.volume = 1;
         this.successSound.play();
-      }, 200)
+      }, 200);
 
       this.tilesService.currentPair.forEach((item: PexCurrentPair) => {
         item.selector.classList.add("matched");
@@ -69,22 +63,24 @@ export class TilesComponent implements OnInit {
   }
 
   finishGame() {
-    // TODO fix order of sounds, fanfare in the same time as alert()
     setTimeout(() => {
       this.fanfareSound.volume = 0.7;
       this.fanfareSound.play();
     }, 340);
     setTimeout(() => {
-      alert('Congratulations, you WON!');
+      this.appComponentService.showWonModal();
       this.tilesService.resetAll();
     }, 350);
   }
 
   pairBoxes(item: any) { // TODO improve type in the future
-    this.appComponentService.gameIsTouched = true;
-    this.cardFlipSound[this.headerService.selectFlipSound].volume = .65;
-    this.cardFlipSound[this.headerService.selectFlipSound].play();
-    this.tilesService.movesCounter();
+    this.appComponentService.setGameIsTouched();
+
+    const flipSound = new Audio(this.tilesService.randomCardFlipSound);
+    flipSound.volume = .4;
+    flipSound.play();
+
+    this.gameInfoPanelService.movesDisplayNext();
 
     if(item === null) {
       return;

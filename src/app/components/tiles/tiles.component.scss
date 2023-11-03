@@ -81,11 +81,13 @@
     justify-content: center;
     border-radius: 20px;
     overflow: hidden;
+    outline: 1px solid whitesmoke;
 
     body.hell-layout & {
       border-radius: 8px;
       background-color: #c31010;
       box-shadow: 0 0 2px lightgray;
+      outline: none;
     }
 
     &.front-face {
@@ -124,7 +126,6 @@
             margin-bottom: 0;
             color: white;
           }
-
         }
 
         .index {
@@ -134,7 +135,7 @@
           font-weight: bold;
 
           body.medium-layout & {
-            font-size: 30px;
+            font-size: 28px;
           }
 
           body.hell-layout & {

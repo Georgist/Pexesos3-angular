@@ -17,7 +17,8 @@
 
     <button
       class="new-game-btn"
-      (click)="createNewTiles($event)"
+      (click)="createNewGame($event)"
+      [attr.data-clicked]="newGameBtnIsClicked"
     >
       Start a new game
     </button>
