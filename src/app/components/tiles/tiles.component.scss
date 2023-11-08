@@ -7,7 +7,7 @@
   position: relative;
   text-align: center;
 
-  body.medium-layout & {
+  app-tiles.medium-layout & {
     grid-template-rows: repeat(4, 1fr);
     grid-template-columns: repeat(6, 1fr);
     grid-gap: 8px;
@@ -20,172 +20,170 @@
   }
 
   .pex-item {
+    position: relative;
+    cursor: pointer;
+    transform-style: preserve-3d;
+    transition: transform 0.6s;
+    height: 180px;
+
+    app-tiles.medium-layout & {
+      height: 130px;
+    }
+
+    body.hell-layout & {
+      height: 36px;
+    }
 
     body.hell-layout.active & {
       transform: rotateY(180deg);
     }
-  }
-}
 
-.pex-item {
-  position: relative;
-  cursor: pointer;
-  transform-style: preserve-3d;
-  transition: transform 0.6s;
-  height: 180px;
+    &.active,
+    &.matched {
+      transform: rotateY(180deg);
+    }
 
-  body.medium-layout & {
-    height: 130px;
-  }
-
-  body.hell-layout & {
-    height: 36px;
-  }
-
-  &.active,
-  &.matched {
-    transform: rotateY(180deg);
-  }
-
-  &:hover {
-    .pex-item-face {
-      &.front-face {
-        span {
-          opacity: 0.8;
+    &:hover {
+      .pex-item-face {
+        &.front-face {
+          span {
+            opacity: 0.8;
+          }
         }
       }
     }
-  }
 
-  &.visited {
+    &.visited {
+      .pex-item-face {
+        background: #4e4e4e;
+
+        body.hell-layout & {
+          background-color: #7d0809;
+        }
+      }
+    }
+
     .pex-item-face {
-      background: #4e4e4e;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      text-align: center;
+      background: #202020;
+      backface-visibility: hidden;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 20px;
+      overflow: hidden;
+      outline: 1px solid whitesmoke;
 
       body.hell-layout & {
-        background-color: #7d0809;
-      }
-    }
-  }
-
-  .pex-item-face {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    text-align: center;
-    background: #202020;
-    backface-visibility: hidden;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 20px;
-    overflow: hidden;
-    outline: 1px solid whitesmoke;
-
-    body.hell-layout & {
-      border-radius: 8px;
-      background-color: #c31010;
-      box-shadow: 0 0 2px lightgray;
-      outline: none;
-    }
-
-    &.front-face {
-      transition: box-shadow 0.3s;
-
-      &:hover {
-        box-shadow: 0px 0px 10px #4e4e4e;
+        border-radius: 8px;
+        background-color: #c31010;
+        box-shadow: 0 0 2px lightgray;
+        outline: none;
       }
 
-      &.visited {
-        span {
+      &.front-face {
+        transition: box-shadow 0.3s;
+
+        &:hover {
+          box-shadow: 0px 0px 10px #4e4e4e;
+        }
+
+        &.visited {
+          span {
+            display: none;
+          }
+        }
+
+        .front-face-inner {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-direction: column;
+
+          .title {
+            font-size: 16px;
+            transition: opacity 0.3s;
+            color: gray;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+
+            app-tiles.medium-layout & {
+              font-size: 14px;
+            }
+
+            body.hell-layout & {
+              font-size: 10px;
+              letter-spacing: .6px;
+              margin-bottom: 0;
+              color: white;
+            }
+          }
+
+          .index {
+            font-size: 34px;
+            transition: opacity 0.3s;
+            color: white;
+            font-weight: bold;
+
+            app-tiles.medium-layout & {
+              font-size: 28px;
+            }
+
+            body.hell-layout & {
+              display: none;
+            }
+
+          }
+        }
+      }
+
+      &.back-face {
+        position: relative;
+        transform: rotateY(180deg);
+
+        body.hell-layout & {
+          //darker bg
+
+          .hell-layout-pair-value {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            inset: 0 0 0 0;
+            z-index: 1;
+            color: white;
+            font-weight: bold;
+            letter-spacing: 1px;
+            font-size: 14px;
+            text-transform: uppercase;
+            text-shadow: 0px 0px 1px black;
+            background-color: rgba(0, 0, 0, 0.35);
+          }
+        }
+
+        .hell-layout-pair-value {
           display: none;
         }
       }
 
-      .front-face-inner {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
+      img {
+        display: block;
+        max-width: 100%;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 20px;
 
-        .title {
-          font-size: 16px;
-          transition: opacity 0.3s;
-          color: gray;
-          text-transform: uppercase;
-          margin-bottom: 10px;
-
-          body.medium-layout & {
-            font-size: 14px;
-          }
-
-          body.hell-layout & {
-            font-size: 10px;
-            letter-spacing: .6px;
-            margin-bottom: 0;
-            color: white;
-          }
+        body.hell-layout & {
+          border-radius: 8px;
         }
-
-        .index {
-          font-size: 34px;
-          transition: opacity 0.3s;
-          color: white;
-          font-weight: bold;
-
-          body.medium-layout & {
-            font-size: 28px;
-          }
-
-          body.hell-layout & {
-            display: none;
-          }
-
-        }
-      }
-    }
-
-    &.back-face {
-      position: relative;
-      transform: rotateY(180deg);
-
-      body.hell-layout & {
-        //darker bg
-
-        .hell-layout-pair-value {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          position: absolute;
-          inset: 0 0 0 0;
-          z-index: 1;
-          color: white;
-          font-weight: bold;
-          letter-spacing: 1px;
-          font-size: 14px;
-          text-transform: uppercase;
-          text-shadow: 0px 0px 1px black;
-          background-color: rgba(0, 0, 0, 0.35);
-        }
-      }
-
-      .hell-layout-pair-value {
-        display: none;
-      }
-    }
-
-    img {
-      display: block;
-      max-width: 100%;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 20px;
-
-      body.hell-layout & {
-        border-radius: 8px;
       }
     }
   }
+
 }

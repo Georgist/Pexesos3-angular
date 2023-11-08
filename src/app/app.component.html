@@ -1,13 +1,15 @@
+<!--<app-test></app-test>-->
+
 <app-header></app-header>
 
 <div class="main-content">
   <router-outlet></router-outlet>
 </div>
 
-<!-- New Game? Modal -->
+<!-- RESTART GAME Modal -->
 <app-modal
-  *ngIf="appComponentService.gameRestartValue"
-  (closeEvent)="appComponentService.hideRestartGameModal()"
+  *ngIf="modalService.toggleRestartGameModal"
+  (closeEvent)="modalService.hideRestartGameModal()"
 >
   <ng-template #header>
     <h1>New Game</h1>
@@ -26,7 +28,7 @@
     </button>
     <button
       class="secondary-modal-btn"
-      (click)="appComponentService.hideRestartGameModal()"
+      (click)="modalService.hideRestartGameModal()"
     >
       No
     </button>
@@ -34,8 +36,8 @@
 </app-modal>
 
 <app-modal
-  *ngIf="appComponentService.gameIsWonValue"
-  (closeEvent)="appComponentService.hideWonModal()"
+  *ngIf="modalService.toggleWonGameModal"
+  (closeEvent)="modalService.hideWonModal()"
 >
   <ng-template #header>
     <h1>You Won!</h1>
@@ -54,7 +56,7 @@
       <tr>
         <th>Time:</th>
         <td>
-          <strong>{{ gameInfoPanelService.timerDisplay }}</strong>
+          <strong>{{ timerService.timerDisplay }}</strong>
         </td>
       </tr>
     </table>
@@ -62,7 +64,7 @@
   <ng-template #footer>
     <button
       class="primary-modal-btn"
-      (click)="appComponentService.hideWonModal()"
+      (click)="modalService.hideWonModal()"
     >
       Thanks
     </button>

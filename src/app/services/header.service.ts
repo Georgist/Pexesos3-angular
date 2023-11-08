@@ -10,7 +10,7 @@ export class HeaderService {
 
   gameDifficultyEasy!: number;
   gameDifficultyMedium!: number;
-  gameDifficultyHell!: number;
+  //gameDifficultyHell!: number;
   currentGameDifficulty!: number;
 
   get headerAdditionalContent(): boolean {

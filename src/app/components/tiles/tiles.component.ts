@@ -1,10 +1,10 @@
-import {AfterViewInit, Component, OnInit, Renderer2, ViewEncapsulation} from '@angular/core';
+import { Component, ViewEncapsulation} from '@angular/core';
 import {TilesService} from "../../services/tiles.service";
-import {HeaderService} from "../../services/header.service";
-import {PexCurrentPair, PexItem} from "./tiles.types";
-import {Observable, tap} from "rxjs";
+import {PexCurrentPair} from "./tiles.types";
 import {AppComponentService} from "../../services/app.component.service";
 import {GameInfoPanelService} from "../game-info-panel/game-info-panel.service";
+import {ModalService} from "../../services/modal.service";
+import {StatesService} from "../../services/states.service";
 
 @Component({
   selector: 'app-tiles',
@@ -12,13 +12,14 @@ import {GameInfoPanelService} from "../game-info-panel/game-info-panel.service";
   styleUrls: ['./tiles.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class TilesComponent implements OnInit {
-  successSound = new Audio('assets/sounds/success-effect.mp3');
-  fanfareSound = new Audio('assets/sounds/fanfare-effect.mp3');
-
-  constructor(public tilesService: TilesService, public gameInfoPanelService: GameInfoPanelService, public headerService: HeaderService, public appComponentService: AppComponentService) {}
-
-  ngOnInit() {}
+export class TilesComponent {
+  constructor(
+    private modalService: ModalService,
+    public tilesService: TilesService,
+    public gameInfoPanelService: GameInfoPanelService,
+    public appComponentService: AppComponentService,
+    private statesService: StatesService,
+  ) {}
 
   updateVisitedItem(id: string | undefined, currentItem: HTMLElement) {
     //let currentItemIndex = this.tilesService.pexData.findIndex(item => item.id === Number(id));
@@ -33,8 +34,8 @@ export class TilesComponent implements OnInit {
     if (matched) {
       setTimeout(() => {
         // TODO fix sound when more items match in short time, play sound every time
-        this.successSound.volume = 1;
-        this.successSound.play();
+        this.appComponentService.successSound.volume = 1;
+        this.appComponentService.successSound.play();
       }, 200);
 
       this.tilesService.currentPair.forEach((item: PexCurrentPair) => {
@@ -46,7 +47,7 @@ export class TilesComponent implements OnInit {
       this.tilesService.allPairs.splice(pairIndex, 1);
 
       if (!this.tilesService.allPairs.length) {
-        this.finishGame();
+        this.appComponentService.finishGame();
       }
     } else {
       this.tilesService.currentPair.forEach((item) => {
@@ -62,33 +63,22 @@ export class TilesComponent implements OnInit {
     }
   }
 
-  finishGame() {
-    setTimeout(() => {
-      this.fanfareSound.volume = 0.7;
-      this.fanfareSound.play();
-    }, 340);
-    setTimeout(() => {
-      this.appComponentService.showWonModal();
-      this.tilesService.resetAll();
-    }, 350);
-  }
-
   pairBoxes(item: any) { // TODO improve type in the future
-    this.appComponentService.setGameIsTouched();
+    if (item === null) {
+      return;
+    }
+
+    this.statesService.setGameIsTouched();
+    this.gameInfoPanelService.movesDisplayNext();
 
     const flipSound = new Audio(this.tilesService.randomCardFlipSound);
     flipSound.volume = .4;
     flipSound.play();
 
-    this.gameInfoPanelService.movesDisplayNext();
-
-    if(item === null) {
-      return;
-    }
-
     if (item.dataset?.['clicked'] === 'false') {
       item.classList.add("active");
       item.setAttribute('data-clicked', 'true');
+
       this.updateVisitedItem(item.dataset?.['id'], item);
 
       if ((this.tilesService.currentPair.length < 2)) {

@@ -13,6 +13,7 @@ import { TilesComponent } from './components/tiles/tiles.component';
 import { GameInfoPanelComponent } from './components/game-info-panel/game-info-panel.component';
 import { TipInfoPanelComponent } from './components/tip-info-panel/tip-info-panel.component';
 import { ModalComponent } from './components/modal/modal.component';
+import { TestComponent } from './components/test/test.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { ModalComponent } from './components/modal/modal.component';
     TilesComponent,
     GameInfoPanelComponent,
     TipInfoPanelComponent,
-    ModalComponent
+    ModalComponent,
+    TestComponent,
   ],
   imports: [
     BrowserModule,

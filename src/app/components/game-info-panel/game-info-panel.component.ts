@@ -1,6 +1,6 @@
-import {Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
-import {timer} from 'rxjs';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {GameInfoPanelService} from "./game-info-panel.service";
+import {TimerService} from "../../services/timer.service";
 
 @Component({
   selector: 'app-game-info-panel',
@@ -10,13 +10,12 @@ import {GameInfoPanelService} from "./game-info-panel.service";
 })
 export class GameInfoPanelComponent implements OnInit {
 
-  constructor(public gameInfoPanelService: GameInfoPanelService) {}
+  constructor(
+    public timerService: TimerService,
+    public gameInfoPanelService: GameInfoPanelService
+  ) {}
 
   ngOnInit() {
-    this.gameInfoPanelService.startTimer$.subscribe(() => {
-      this.timeCounter();
-    });
-
     this.gameInfoPanelService.movesSubscription = this.gameInfoPanelService.movesDisplay$.subscribe(() => {
       this.movesCounter();
     });
@@ -29,25 +28,5 @@ export class GameInfoPanelComponent implements OnInit {
       this.gameInfoPanelService.movesDisplay++;
       this.gameInfoPanelService.movesCounterPair = [];
     }
-  }
-
-  timeCounter() {
-    this.gameInfoPanelService.timeCounted = 0;
-    this.gameInfoPanelService.timerDisplay = '00:00';
-
-    // TODO pause timer when modal is open
-
-    this.gameInfoPanelService.timerSubscription = timer(0, 1000).subscribe(ec => {
-      this.gameInfoPanelService.timeCounted++;
-      this.gameInfoPanelService.timerDisplay = this.getDisplayTimer(this.gameInfoPanelService.timeCounted);
-    });
-  }
-
-  getDisplayTimer(time: number) {
-    //const h = Math.floor(time / 3600).toString().padStart(2,'0'),
-    const m = Math.floor(time % 3600 / 60).toString().padStart(2,'0'),
-          s = Math.floor(time % 60).toString().padStart(2,'0');
-
-    return `${m}:${s}`;
   }
 }
