@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import {AppComponentService} from "./app.component.service";
 import {TimerService} from "./timer.service";
 import {StatesService} from "./states.service";
 import {TilesService} from "./tiles.service";
