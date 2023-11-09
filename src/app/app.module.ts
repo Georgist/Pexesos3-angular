@@ -14,6 +14,7 @@ import { GameInfoPanelComponent } from './components/game-info-panel/game-info-p
 import { TipInfoPanelComponent } from './components/tip-info-panel/tip-info-panel.component';
 import { ModalComponent } from './components/modal/modal.component';
 import { TestComponent } from './components/test/test.component';
+import { HellfirePageComponent } from './pages/hellfire-page/hellfire-page.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { TestComponent } from './components/test/test.component';
     TipInfoPanelComponent,
     ModalComponent,
     TestComponent,
+    HellfirePageComponent,
   ],
   imports: [
     BrowserModule,

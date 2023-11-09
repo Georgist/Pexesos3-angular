@@ -4,6 +4,7 @@ import {ClassicGamePageComponent} from "./pages/classic-game-page/classic-game-p
 import {SpeedrunGamePageComponent} from "./pages/speedrun-game-page/speedrun-game-page.component";
 import {PayToWinGamePageComponent} from "./pages/pay-to-win-game-page/pay-to-win-game-page.component";
 import {HomePageComponent} from "./pages/home-page/home-page.component";
+import {HellfirePageComponent} from "./pages/hellfire-page/hellfire-page.component";
 
 const routes: Routes = [
   {
@@ -21,6 +22,10 @@ const routes: Routes = [
   {
     path: 'pay-to-win',
     component: PayToWinGamePageComponent,
+  },
+  {
+    path: 'hellfire',
+    component: HellfirePageComponent,
   }
 ];
 

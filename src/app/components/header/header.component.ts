@@ -9,8 +9,6 @@ import {
 import {HeaderService} from "../../services/header.service";
 import {TilesService} from "../../services/tiles.service";
 import {AppComponentService} from "../../services/app.component.service";
-import {GameInfoPanelService} from "../game-info-panel/game-info-panel.service";
-import {TimerService} from "../../services/timer.service";
 import {ModalService} from "../../services/modal.service";
 import {StatesService} from "../../services/states.service";
 

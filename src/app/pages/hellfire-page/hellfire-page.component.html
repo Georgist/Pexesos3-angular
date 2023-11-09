@@ -1,0 +1,5 @@
+<app-game-info-panel></app-game-info-panel>
+
+<app-tiles *ngIf="this.tilesService.pexData.length"></app-tiles>
+
+<app-tip-info-panel *ngIf="!this.tilesService.pexData.length"></app-tip-info-panel>

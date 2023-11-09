@@ -1,10 +1,10 @@
-import { Component, ViewEncapsulation} from '@angular/core';
+import {Component, HostBinding, ViewEncapsulation} from '@angular/core';
 import {TilesService} from "../../services/tiles.service";
 import {PexCurrentPair} from "./tiles.types";
 import {AppComponentService} from "../../services/app.component.service";
-import {GameInfoPanelService} from "../game-info-panel/game-info-panel.service";
 import {ModalService} from "../../services/modal.service";
 import {StatesService} from "../../services/states.service";
+import {MovesService} from "../../services/moves.service";
 
 @Component({
   selector: 'app-tiles',
@@ -16,7 +16,7 @@ export class TilesComponent {
   constructor(
     private modalService: ModalService,
     public tilesService: TilesService,
-    public gameInfoPanelService: GameInfoPanelService,
+    public movesService: MovesService,
     public appComponentService: AppComponentService,
     private statesService: StatesService,
   ) {}
@@ -40,7 +40,7 @@ export class TilesComponent {
 
       this.tilesService.currentPair.forEach((item: PexCurrentPair) => {
         item.selector.classList.add("matched");
-        item.selector.classList.remove("active");
+        item.selector.classList.remove("flipped");
       });
 
       let pairIndex = this.tilesService.allPairs.indexOf(String(pairValue)); // TODO check this case
@@ -52,7 +52,7 @@ export class TilesComponent {
     } else {
       this.tilesService.currentPair.forEach((item) => {
         setTimeout(() => {
-          item.selector.classList.remove("active", "matched");
+          item.selector.classList.remove("flipped", "matched");
           item.selector.setAttribute('data-clicked', 'false');
         }, 1000);
       });
@@ -69,14 +69,14 @@ export class TilesComponent {
     }
 
     this.statesService.setGameIsTouched();
-    this.gameInfoPanelService.movesDisplayNext();
+    this.movesService.increment();
 
     const flipSound = new Audio(this.tilesService.randomCardFlipSound);
     flipSound.volume = .4;
     flipSound.play();
 
     if (item.dataset?.['clicked'] === 'false') {
-      item.classList.add("active");
+      item.classList.add("flipped");
       item.setAttribute('data-clicked', 'true');
 
       this.updateVisitedItem(item.dataset?.['id'], item);

@@ -5,39 +5,38 @@ import {Observable, Subject, takeUntil, timer} from "rxjs";
   providedIn: 'root'
 })
 export class TimerService {
-  timerDisplay = '00:00:00';
+  timerDisplay = '00:00';
   timer$: Observable<number> = timer(0, 1000);
-  timerCancelNotifier = new Subject();
+  timerCancelNotifier = new Subject<boolean>();
 
   constructor() {}
 
-  timerStop() {
-    this.timerCancelNotifier.next(undefined);
-  }
-
-  timerReset() {
-    this.timerDisplay = '00:00:00';
-    this.timerCancelNotifier.next(undefined);
-  }
-
   timerStart() {
-    this.timerDisplay = '00:00:00';
-
-    // TODO pause timer when modal is open
+    this.timerDisplay = '00:00';
 
     this.timer$.pipe(takeUntil(this.timerCancelNotifier)).subscribe((value) => {
       this.timerDisplay = this.formatTime(value);
     });
   }
 
-  formatTime(seconds: number): string {
+  timerStop() {
+    this.timerCancelNotifier.next(true);
+  }
+
+  timerReset() {
+    this.timerDisplay = '00:00';
+    this.timerCancelNotifier.next(true);
+  }
+
+  private formatTime(seconds: number): string {
     const hours = Math.floor(seconds / 3600);
     const minutes = Math.floor((seconds % 3600) / 60);
     const remainingSeconds = seconds % 60;
 
-    // TODO add condition for hours
     const formattedTime =
-      `${(hours < 10 ? '0' : '')}${hours}:${(minutes < 10 ? '0' : '')}${minutes}:${(remainingSeconds < 10 ? '0' : '')}${remainingSeconds}`;
+      `${minutes > 59 ? `${(hours < 10 ? '0' : '')}:` : ''}${(minutes < 10 ? '0' : '')}${minutes}:${(remainingSeconds < 10 ? '0' : '')}${remainingSeconds}`;
+
+    console.log(formattedTime);
 
     return formattedTime;
   }

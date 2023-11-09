@@ -10,8 +10,6 @@ import {HelpersService} from "../helpers/helpers.service";
   providedIn: 'root'
 })
 export class TilesService {
-  @HostBinding('class.medium-layout') mediumLayout!: boolean;
-
   randomCardFlipSound!: string;
 
   cardFlipSounds: string[] = [
@@ -66,10 +64,6 @@ export class TilesService {
 
   createPexData(currentDifficulty: number) {
     this.resetAllData();
-
-    if(currentDifficulty === this.headerService.gameDifficultyMedium) {
-      this.mediumLayout = true;
-    }
 
     for (let i = 0; i < (currentDifficulty / 2); i++) {  // divide by 2, we push object into array twice
       let newPexDataItem;

@@ -12,8 +12,8 @@ export interface GameStates {
   providedIn: 'root'
 })
 export class StatesService {
-
   constructor() { }
+
   private readonly gameStatesSubject = new BehaviorSubject<GameStates>({
     gameHasStarted: false,
     gameIsTouched: false,

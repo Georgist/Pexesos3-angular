@@ -33,7 +33,7 @@
       justify-content: center;
       border-radius: 16px;
       padding: 55px 20px;
-      background: linear-gradient(-45deg, #4d0081, #4714f4, #f40b36, #0b7bf4);
+      background-image: linear-gradient(-45deg, #4d0081, #4714f4, #f40b36, #0b7bf4);
       background-size: 500% 500%;
       transition: box-shadow 0.3s;
 
@@ -47,6 +47,10 @@
         pointer-events: none;
         opacity: 0.4;
         box-shadow: inset 0px 0px 4px 2px darkblue;
+      }
+
+      &.hellfire {
+        background-image: linear-gradient(-45deg, #871721, #4a0d12, #cd1102, #33090d);
       }
 
       > span {

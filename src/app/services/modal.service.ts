@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {TimerService} from "./timer.service";
 import {StatesService} from "./states.service";
 import {TilesService} from "./tiles.service";
+import {MovesService} from "./moves.service";
 
 @Injectable({
   providedIn: 'root'
@@ -14,11 +15,13 @@ export class ModalService {
     private tilesService: TilesService,
     private timerService: TimerService,
     private statesService: StatesService,
+    private movesService: MovesService,
   ) {}
 
   showRestartGameModal(){
     this.toggleRestartGameModal = true;
   }
+
   hideRestartGameModal(){
     this.toggleRestartGameModal = false;
   }
@@ -27,12 +30,14 @@ export class ModalService {
     this.toggleWonGameModal = true;
     this.timerService.timerStop();
   }
+
   hideWonModal(){
     this.toggleWonGameModal = false;
     this.statesService.resetGameHasStarted();
     this.statesService.resetGameIsTouched();
     this.statesService.resetGameIsWon();
     this.timerService.timerReset();
+    this.movesService.reset();
 
     this.tilesService.resetAllData();
   }

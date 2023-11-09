@@ -34,12 +34,13 @@
       height: 36px;
     }
 
-    body.hell-layout.active & {
+    body.hell-layout.flipped & {
       transform: rotateY(180deg);
     }
 
-    &.active,
+    &.flipped,
     &.matched {
+      pointer-events: none;
       transform: rotateY(180deg);
     }
 

@@ -1,18 +1,14 @@
-import {
-  AfterViewInit,
-  Component,
-  ViewEncapsulation
-} from '@angular/core';
+import {AfterViewInit, Component, ViewEncapsulation} from '@angular/core';
 import {HeaderService} from "../../services/header.service";
 import {TilesService} from "../../services/tiles.service";
 
 @Component({
-  selector: 'app-classic-game-page',
-  templateUrl: './classic-game-page.component.html',
-  styleUrls: ['./classic-game-page.component.scss'],
+  selector: 'app-hellfire-page',
+  templateUrl: './hellfire-page.component.html',
+  styleUrls: ['./hellfire-page.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class ClassicGamePageComponent implements AfterViewInit {
+export class HellfirePageComponent implements AfterViewInit {
   constructor(
     public headerService: HeaderService,
     public tilesService: TilesService
