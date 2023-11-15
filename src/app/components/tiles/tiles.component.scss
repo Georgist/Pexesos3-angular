@@ -1,20 +1,22 @@
 .pex-tiles {
   display: grid;
   width: 100%;
-  grid-template-rows: repeat(3, 1fr);
   grid-template-columns: repeat(4, 1fr);
-  grid-gap: 12px;
+  grid-gap: 18px;
   position: relative;
   text-align: center;
 
-  app-tiles.medium-layout & {
-    grid-template-rows: repeat(4, 1fr);
+  app-tiles.medium-difficulty & {
     grid-template-columns: repeat(6, 1fr);
-    grid-gap: 8px;
+    grid-gap: 14px;
   }
 
-  body.hell-layout & {
-    grid-template-rows: repeat(20, 1fr);
+  app-tiles.hard-difficulty & {
+    grid-template-columns: repeat(8, 1fr);
+    grid-gap: 10px;
+  }
+
+  app-tiles.hell-difficulty & {
     grid-template-columns: repeat(20, 1fr);
     grid-gap: 6px;
   }
@@ -26,15 +28,19 @@
     transition: transform 0.6s;
     height: 180px;
 
-    app-tiles.medium-layout & {
+    app-tiles.medium-difficulty & {
       height: 130px;
     }
 
-    body.hell-layout & {
-      height: 36px;
+    app-tiles.hard-difficulty & {
+      height: 100px;
     }
 
-    body.hell-layout.flipped & {
+    app-tiles.hell-difficulty & {
+      height: 35px;
+    }
+
+    body.hellfire-mode.flipped & {
       transform: rotateY(180deg);
     }
 
@@ -58,7 +64,7 @@
       .pex-item-face {
         background: #4e4e4e;
 
-        body.hell-layout & {
+        body.hellfire-mode & {
           background-color: #7d0809;
         }
       }
@@ -80,8 +86,19 @@
       overflow: hidden;
       outline: 1px solid whitesmoke;
 
-      body.hell-layout & {
+      app-tiles.hard-difficulty & {
+        border-radius: 18px;
+      }
+
+      app-tiles.hard-difficulty & {
+        border-radius: 14px;
+      }
+
+      app-tiles.hell-difficulty & {
         border-radius: 8px;
+      }
+
+      body.hellfire-mode & {
         background-color: #c31010;
         box-shadow: 0 0 2px lightgray;
         outline: none;
@@ -113,15 +130,36 @@
             text-transform: uppercase;
             margin-bottom: 10px;
 
-            app-tiles.medium-layout & {
-              font-size: 14px;
-            }
-
-            body.hell-layout & {
-              font-size: 10px;
-              letter-spacing: .6px;
+            // expection for hellfire mode, .title should look like .index
+            body.hellfire-mode & {
+              font-size: 28px;
+              font-weight: bold;
               margin-bottom: 0;
               color: white;
+              letter-spacing: 1px;
+            }
+
+            app-tiles.medium-difficulty & {
+              font-size: 14px;
+
+              body.hellfire-mode & {
+                font-size: 24px;
+              }
+            }
+
+            app-tiles.hard-difficulty & {
+              font-size: 12px;
+
+              body.hellfire-mode & {
+                font-size: 20px;
+              }
+            }
+
+            app-tiles.hell-difficulty & {
+              body.hellfire-mode & {
+                font-size: 13px;
+                font-weight: normal;
+              }
             }
           }
 
@@ -131,14 +169,17 @@
             color: white;
             font-weight: bold;
 
-            app-tiles.medium-layout & {
+            app-tiles.medium-difficulty & {
               font-size: 28px;
             }
 
-            body.hell-layout & {
-              display: none;
+            app-tiles.hard-difficulty & {
+              font-size: 22px;
             }
 
+            body.hellfire-mode & {
+              display: none;
+            }
           }
         }
       }
@@ -147,28 +188,20 @@
         position: relative;
         transform: rotateY(180deg);
 
-        body.hell-layout & {
-          //darker bg
-
-          .hell-layout-pair-value {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: absolute;
-            inset: 0 0 0 0;
-            z-index: 1;
-            color: white;
-            font-weight: bold;
-            letter-spacing: 1px;
-            font-size: 14px;
-            text-transform: uppercase;
-            text-shadow: 0px 0px 1px black;
-            background-color: rgba(0, 0, 0, 0.35);
-          }
-        }
-
-        .hell-layout-pair-value {
-          display: none;
+        .hellfire-mode-pair-value {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          position: absolute;
+          inset: 0 0 0 0;
+          z-index: 1;
+          color: white;
+          font-weight: bold;
+          letter-spacing: 1px;
+          font-size: 14px;
+          text-transform: uppercase;
+          text-shadow: 0px 0px 1px black;
+          background-color: rgba(0, 0, 0, 0.35);
         }
       }
 
@@ -179,12 +212,7 @@
         height: 100%;
         object-fit: cover;
         border-radius: 20px;
-
-        body.hell-layout & {
-          border-radius: 8px;
-        }
       }
     }
   }
-
 }

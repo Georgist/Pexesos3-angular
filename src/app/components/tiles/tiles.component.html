@@ -1,6 +1,7 @@
 <ul class="pex-tiles">
+  <!-- TODO how to set type for ITEM in pexData -->
   <li
-    *ngFor="let item of tilesService.pexData; let index = index;"
+    *ngFor="let item of dataService.pexData; let index = index;"
     class="pex-item"
     data-clicked="false"
     [attr.data-id]="item.id"
@@ -15,7 +16,12 @@
     </div>
     <div class="pex-item-face back-face">
       <img [src]="item.imageUrl"/>
-      <span class="hell-layout-pair-value">{{ item.pairValue.substring(0, 3)}}</span>
+      <span
+        *ngIf="modesService.isHellfireMode"
+        class="hellfire-mode-pair-value"
+      >
+        {{ item.pairValue.substring(0, 3)}}
+      </span>
     </div>
   </li>
 </ul>

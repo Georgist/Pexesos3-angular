@@ -8,29 +8,28 @@ html {
 }
 
 body {
-  font-family: Arial, sans-serif;
   position: relative;
   line-height: 1;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   min-height: 100%;
-  background-color: rgba(255, 255, 255, 0.7);
+  background-color: rgba(black, 0.05);
 
-  &.hell-layout {
-    background: url(assets/images/x1.webp);
+  &.hellfire-mode {
+    background: url(assets/images/x1.webp) top center;
   }
 
   &::before {
       display: none;
 
-      @include extend('body', '.hell-layout') {
+      @include extend('body', '.hellfire-mode') {
         display: block;
         content: '';
         position: absolute;
         inset: 0 0 0 0;
         pointer-events: none;
-        background-color: rgba(0, 0, 0, 0.55);
+        background-color: rgba(0, 0, 0, 0.4);
         z-index: -1;
       }
   }
@@ -39,8 +38,13 @@ body {
 .page-wrapper {
   max-width: 1000px;
   margin: 0 auto;
-  height: auto;
-  padding: 20px 10px 40px;
+  height: 100vh;
+  padding: 20px 20px 30px;
+  background: linear-gradient(rgba(black, .03), transparent, transparent);
+
+  body.hellfire-mode & {
+    background-image: linear-gradient(rgba(black, 0.85), rgba(black, 0.55), rgba(black, 0.25), transparent, transparent);
+  }
 }
 
 /*import { createApi } from "./unsplash-js";
@@ -70,13 +74,13 @@ const unsplashAPI = createApi({
 //DONE set it into localStorage
 
 //Pseudo code for pexeso, 3 important methods:
-//DONE 1. When item is clicked, change isVisited(first visit) and isActive properties in an object (ONLY FOR ONE ITEM)
+//DONE 1. When item is clicked, change isVisited(first visit) and isFlipped properties in an object (ONLY FOR ONE ITEM)
 //DONE 2. When they match, add isMatched for both (FOR MULTIPLE ITEMS)
-//NOT 3. When they DONT MATCH, change isActive for both (FOR MULTIPLE ITEMS)
+//NOT 3. When they DONT MATCH, change isFlipped for both (FOR MULTIPLE ITEMS)
 
 // LATER ======
-// Counter of pairs
-// Counter of moves
-// Timer
+// Counter of pairs, Pairs left?
+//DONE Counter of moves
+//DONE Timer
 // Turns? (against computer)
 // Points?

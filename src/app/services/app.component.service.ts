@@ -3,19 +3,18 @@ import {TimerService} from "./timer.service";
 import {ModalService} from "./modal.service";
 import {StatesService} from "./states.service";
 import {MovesService} from "./moves.service";
+import {DataService} from "./data.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AppComponentService {
-  successSound = new Audio('assets/sounds/success-effect.mp3');
-  fanfareSound = new Audio('assets/sounds/fanfare-effect.mp3');
-
   constructor(
     private statesService: StatesService,
     private modalService: ModalService,
     private timerService: TimerService,
-    private movesService: MovesService
+    private movesService: MovesService,
+    private dataService: DataService,
   ) {}
 
   startGame() {
@@ -27,15 +26,15 @@ export class AppComponentService {
     this.statesService.resetGameHasStarted();
     this.statesService.resetGameIsTouched();
     this.timerService.timerReset();
-    this.movesService.reset();
+    this.movesService.movesReset();
   }
 
   finishGame() {
     setTimeout(() => {
       this.modalService.showWonModal();
 
-      this.fanfareSound.volume = 0.7;
-      this.fanfareSound.play();
+      this.dataService.fanfareSound.volume = 0.7;
+      this.dataService.fanfareSound.play();
     }, 350);
   }
 }

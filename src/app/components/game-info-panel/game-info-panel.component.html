@@ -1,12 +1,28 @@
 <div class="game-info-panel">
   <!-- classic mode = Time counter and Moves -->
   <!--  <span class="time-counter">Time: <time class="value">00:49</time></span>-->
-  <span class="moves-counter">Moves: <span class="value">{{ movesService.movesDisplay }}</span></span>
+  <span class="moves-counter">
+    Moves:
+    <span class="value">{{ movesService.movesDisplay }}</span>
+  </span>
 
-  <span class="time-counter">Time: <time class="value">{{ timerService.timerDisplay }}</time></span>
+  <span class="time-counter">
+    Time:
+    <time class="value">{{ timerService.timerDisplay }}</time>
+  </span>
   <!--<span class="moves-counter">Moves: <span class="value">{{ movesDisplay }}</span></span>-->
 
   <!-- speed run = Time countdown and Moves countdown -->
-<!--  <span class="time-countdown">Time left: <time class="value">7:32</time></span>
-  <span class="moves-countdown">Moves left: <span class="value">7/10</span></span>-->
+  <!--  <span class="time-countdown">Time left: <time class="value">7:32</time></span>
+    <span class="moves-countdown">Moves left: <span class="value">7/10</span></span>-->
+
+  <span class="pairs-matched">
+    Pairs matched:
+    <span class="value">2<i class="slash">/</i>12</span>
+  </span>
+  <span class="points">
+    Points:
+    <span class="value">127</span>
+  </span>
+
 </div>

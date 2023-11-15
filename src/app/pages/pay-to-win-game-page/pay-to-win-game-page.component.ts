@@ -1,5 +1,6 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {HeaderService} from "../../services/header.service";
+import {AppComponentService} from "../../services/app.component.service";
 
 @Component({
   selector: 'app-pay-to-win-game-page',
@@ -9,9 +10,12 @@ import {HeaderService} from "../../services/header.service";
 })
 export class PayToWinGamePageComponent implements OnInit {
 
-  constructor(public headerService: HeaderService) {}
+  constructor(
+    private appComponentService: AppComponentService,
+    private headerService: HeaderService
+  ) {}
 
   ngOnInit() {
-    //this.headerService.headerAdditionalContent = true;
+    this.headerService.headerAdditionalContent = true;
   }
 }

@@ -1,16 +1,16 @@
 import {
   Component,
-  ElementRef,
-  EventEmitter, HostListener,
-  Output, QueryList,
-  ViewChildren,
+  EventEmitter,
+  Output,
   ViewEncapsulation
 } from '@angular/core';
-import {HeaderService} from "../../services/header.service";
+import {GameDifficulty, HeaderService} from "../../services/header.service";
 import {TilesService} from "../../services/tiles.service";
 import {AppComponentService} from "../../services/app.component.service";
 import {ModalService} from "../../services/modal.service";
 import {StatesService} from "../../services/states.service";
+import {DataService} from "../../services/data.service";
+import {ModesService} from "../../services/modes.service";
 
 @Component({
   selector: 'app-header',
@@ -21,9 +21,9 @@ import {StatesService} from "../../services/states.service";
 export class HeaderComponent {
   @Output() selectBoxValue = new EventEmitter<any>();
 
-  @ViewChildren('difficultySelect', {read: ElementRef}) difficultySelect!: QueryList<ElementRef>;
+  //@HostListener('window:keydown.enter', ['$event']) // TODO bug this is firing 2x twice
 
-  //@HostListener('window:keydown.enter', ['$event']) // TODO this is firing 2x twice
+  difficultyDefault = GameDifficulty.easy;
 
   constructor(
     public headerService: HeaderService,
@@ -31,14 +31,13 @@ export class HeaderComponent {
     public appComponentService: AppComponentService,
     private modalService: ModalService,
     private statesService: StatesService,
-  ) {}
+    private dataService: DataService,
+    protected modesService: ModesService,
+  ) {
+    this.headerService.difficulty$.subscribe();
+  }
 
   createNewGame(event: MouseEvent) {
-    this.headerService.gameDifficultyEasy = Number(this.difficultySelect.first.nativeElement[0].value);
-    this.headerService.gameDifficultyMedium = Number(this.difficultySelect.first.nativeElement[1].value);
-    //this.headerService.gameDifficultyHell = Number(this.difficultySelect.first.nativeElement[2].value);
-    this.headerService.currentGameDifficulty = Number(this.difficultySelect.first.nativeElement.value);
-
     if (this.statesService.gameIsTouchedValue) {
       this.modalService.showRestartGameModal();
 
@@ -52,8 +51,9 @@ export class HeaderComponent {
       this.appComponentService.startGame();
     }
 
+    this.headerService.setDifficulty();
     this.tilesService.randomCardFlipSound = this.tilesService.randomCardFlipSoundFn();
-    this.tilesService.createPexData(this.headerService.currentGameDifficulty);
+    this.dataService.createPexData(this.headerService.currentDifficulty);
 
     event.preventDefault();
   }

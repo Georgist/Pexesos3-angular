@@ -13,12 +13,21 @@
   img {
     opacity: .3;
     width: 36px;
+
+    body.hellfire-mode & {
+      opacity: .9;
+      filter: invert(1);
+    }
   }
 
   p {
     color: #b2b2b2;
-    font-size: 15px;
+    font-size: 14px;
     line-height: 18px;
     margin-top: 10px;
+
+    body.hellfire-mode & {
+      color: white;
+    }
   }
 }

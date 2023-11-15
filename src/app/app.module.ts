@@ -15,6 +15,7 @@ import { TipInfoPanelComponent } from './components/tip-info-panel/tip-info-pane
 import { ModalComponent } from './components/modal/modal.component';
 import { TestComponent } from './components/test/test.component';
 import { HellfirePageComponent } from './pages/hellfire-page/hellfire-page.component';
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { HellfirePageComponent } from './pages/hellfire-page/hellfire-page.compo
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent, HeaderComponent]

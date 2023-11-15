@@ -9,16 +9,15 @@ export class MovesService {
 
   constructor() {}
 
-  reset() {
+  movesReset() {
     this.movesDisplay = 0;
   }
 
-  increment() {
+  movesIncrement() {
     this.movesCounterPair.push('pair');
 
     if(this.movesCounterPair.length === 2) {
       this.movesDisplay++;
-      console.log(this.movesDisplay);
       this.movesCounterPair = [];
     }
   }

@@ -1,7 +1,11 @@
 <app-game-info-panel></app-game-info-panel>
 
-<app-tiles *ngIf="this.tilesService.pexData.length"></app-tiles>
+<app-tiles
+  *ngIf="this.dataService.pexData.length"
+  [ngClass]="{
+    'medium-difficulty': headerService.isMediumDifficulty,
+    'hard-difficulty': headerService.isHardDifficulty
+  }"
+></app-tiles>
 
-<app-tip-info-panel *ngIf="!this.tilesService.pexData.length"></app-tip-info-panel>
-
-
+<app-tip-info-panel *ngIf="!this.dataService.pexData.length"></app-tip-info-panel>

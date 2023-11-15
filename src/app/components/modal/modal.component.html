@@ -1,28 +1,30 @@
 <div class="modal-backdrop"></div>
 
 <div class="modal-content-wrapper">
-  <span class="modal-close" (click)="closeModal(true)">
+  <div class="modal-content-inner">
+    <span class="modal-close" (click)="closeModal(true)">
     <i>&#x2715;</i>
   </span>
 
-  <div
-    *ngIf="header"
-    class="modal-header"
-  >
-    <ng-container [ngTemplateOutlet]="header"></ng-container>
-  </div>
+    <div
+      *ngIf="header"
+      class="modal-header"
+    >
+      <ng-container [ngTemplateOutlet]="header"></ng-container>
+    </div>
 
-  <div
-    *ngIf="body"
-    class="modal-body"
-  >
-    <ng-container [ngTemplateOutlet]="body"></ng-container>
-  </div>
+    <div
+      *ngIf="body"
+      class="modal-body"
+    >
+      <ng-container [ngTemplateOutlet]="body"></ng-container>
+    </div>
 
-  <div
-    *ngIf="footer"
-    class="modal-footer"
-  >
-    <ng-container [ngTemplateOutlet]="footer"></ng-container>
+    <div
+      *ngIf="footer"
+      class="modal-footer"
+    >
+      <ng-container [ngTemplateOutlet]="footer"></ng-container>
+    </div>
   </div>
 </div>

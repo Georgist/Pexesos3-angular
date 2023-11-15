@@ -1,4 +1,4 @@
-<div class="create-layout-wrapper">
+<div class="top-panel-wrapper">
   <div class="left-side">
     <h1 class="app-title">
       <a href="/">Pexesos</a>
@@ -9,11 +9,25 @@
     class="right-side"
   >
     <span class="difficulty">Difficulty:</span>
-    <select autofocus #difficultySelect>
-      <option value="12">Easy</option>
+    <select
+      autofocus
+      [ngModel]="difficultyDefault"
+      (ngModelChange)="headerService.getDifficulty($event)"
+    >
+      <option
+        value="12"
+        default
+      >
+        Easy
+      </option>
       <option value="24">Medium</option>
       <option value="48">Hard</option>
-      <option value="400">Hell</option>
+      <option
+        *ngIf="modesService.isHellfireMode"
+        value="400"
+      >
+        Hell
+      </option>
     </select>
 
     <button

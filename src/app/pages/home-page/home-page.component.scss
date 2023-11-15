@@ -4,7 +4,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin-top: 150px;
+  margin-top: 100px;
 
   > .label {
     color: #000;
@@ -36,6 +36,7 @@
       background-image: linear-gradient(-45deg, #4d0081, #4714f4, #f40b36, #0b7bf4);
       background-size: 500% 500%;
       transition: box-shadow 0.3s;
+      text-transform: capitalize;
 
       &:hover {
         box-shadow: 0px 0px 10px #4e4e4e;
@@ -49,16 +50,24 @@
         box-shadow: inset 0px 0px 4px 2px darkblue;
       }
 
+      &.speedrun {
+        // TODO find good green
+      }
+
+      &.pay-to-win {
+        background-image: linear-gradient(-45deg, #4714f4, #0b7bf4, #4d0081);
+      }
+
       &.hellfire {
-        background-image: linear-gradient(-45deg, #871721, #4a0d12, #cd1102, #33090d);
+        background-image: linear-gradient(-45deg, #f36427, #bc1c24, #f9ae1c, #c41c23);
       }
 
       > span {
-        font-size: 24px;
+        font-size: 22px;
         line-height: 1.2;
         font-weight: bold;
         text-transform: capitalize;
-        letter-spacing: .5px;
+        letter-spacing: 1px;
         color: rgba(255, 255, 255, 1);
         text-shadow: 0px 0px 2px black;
       }

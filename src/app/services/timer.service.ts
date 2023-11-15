@@ -36,8 +36,6 @@ export class TimerService {
     const formattedTime =
       `${minutes > 59 ? `${(hours < 10 ? '0' : '')}:` : ''}${(minutes < 10 ? '0' : '')}${minutes}:${(remainingSeconds < 10 ? '0' : '')}${remainingSeconds}`;
 
-    console.log(formattedTime);
-
     return formattedTime;
   }
 }

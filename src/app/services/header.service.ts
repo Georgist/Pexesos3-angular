@@ -1,17 +1,27 @@
-import {ElementRef, Injectable} from '@angular/core';
-import {TilesService} from "./tiles.service";
+import {Injectable} from '@angular/core';
+import {BehaviorSubject} from "rxjs";
+import {GameModesTypes} from "./data.service";
+import {AppComponentService} from "./app.component.service";
+
+export enum GameDifficulty {
+  easy = 12,
+  medium = 24,
+  hard = 48,
+  hell = 400,
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class HeaderService {
   headerContentToggle = false;
-  headerDifficultySelectElem!: any;
+  currentDifficulty!: number;
 
-  gameDifficultyEasy!: number;
-  gameDifficultyMedium!: number;
-  //gameDifficultyHell!: number;
-  currentGameDifficulty!: number;
+  difficultySubject = new BehaviorSubject(GameDifficulty.easy);
+  readonly difficulty$ = this.difficultySubject.asObservable();
+
+  constructor(protected appComponentService: AppComponentService) {}
+
 
   get headerAdditionalContent(): boolean {
     return this.headerContentToggle;
@@ -21,11 +31,24 @@ export class HeaderService {
     this.headerContentToggle = value;
   }
 
-  get headerDifficultySelect() {
-    return this.headerDifficultySelectElem;
+  // TODO possibly improve this
+  get isMediumDifficulty() {
+    return this.currentDifficulty === GameDifficulty.medium;
   }
 
-  set headerDifficultySelect(element) {
-    this.headerDifficultySelectElem = element;
+  get isHardDifficulty() {
+    return this.currentDifficulty === GameDifficulty.hard;
+  }
+
+  get isHellDifficulty() {
+    return this.currentDifficulty === GameDifficulty.hell;
+  }
+
+  getDifficulty(value: Event) {
+    this.difficultySubject.next(Number(value));
+  }
+
+  setDifficulty() {
+    this.currentDifficulty = this.difficultySubject.getValue();
   }
 }

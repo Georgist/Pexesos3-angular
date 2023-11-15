@@ -1,10 +1,11 @@
-import {Component, OnInit, Renderer2, ViewEncapsulation} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {TilesService} from "./services/tiles.service";
 import {HeaderService} from "./services/header.service";
 import {TimerService} from "./services/timer.service";
 import {ModalService} from "./services/modal.service";
 import {StatesService} from "./services/states.service";
 import {MovesService} from "./services/moves.service";
+import {DataService} from "./services/data.service";
 
 @Component({
   selector: 'app-root',
@@ -20,23 +21,25 @@ export class AppComponent implements OnInit {
     public tilesService: TilesService,
     public movesService: MovesService,
     public headerService: HeaderService,
-    public renderer: Renderer2,
     public modalService: ModalService,
-    public statesService: StatesService) {
-      this.tilesService.renderer = renderer;
-  }
+    public statesService: StatesService,
+    private dataService: DataService,
+  ) {}
 
   ngOnInit() {
     this.statesService.gameStates$.subscribe();
   }
 
   okStartNewGame() {
+    // TODO unify this method with createNewGame() in header component
     this.statesService.resetGameIsTouched();
     this.timerService.timerReset();
-    this.movesService.reset();
+    this.movesService.movesReset();
+
+    this.headerService.setDifficulty();
 
     this.tilesService.randomCardFlipSound = this.tilesService.randomCardFlipSoundFn();
-    this.tilesService.createPexData(this.headerService.currentGameDifficulty);
+    this.dataService.createPexData(this.headerService.currentDifficulty);
 
     this.modalService.hideRestartGameModal();
     this.timerService.timerStart();

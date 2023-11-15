@@ -2,7 +2,7 @@ export interface PexItem {
   pairValue: string;
   id: number;
   imageUrl: string | string[];
-  isActive: boolean;
+  isFlipped: boolean;
   isVisited: boolean;
   isMatched: boolean;
 }
