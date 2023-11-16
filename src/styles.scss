@@ -17,7 +17,7 @@ body {
   background-color: rgba(black, 0.05);
 
   &.hellfire-mode {
-    background: url(assets/images/x1.webp) top center;
+    background: url(assets/images/hellfire-bg.webp) top center;
   }
 
   &::before {
@@ -43,7 +43,7 @@ body {
   background: linear-gradient(rgba(black, .03), transparent, transparent);
 
   body.hellfire-mode & {
-    background-image: linear-gradient(rgba(black, 0.85), rgba(black, 0.55), rgba(black, 0.25), transparent, transparent);
+    background-image: linear-gradient(rgba(black, 0.75), rgba(black, 0.55), rgba(black, 0.25), transparent, transparent);
   }
 }
 
