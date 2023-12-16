@@ -3,7 +3,6 @@ import {Component, ContentChild, EventEmitter, Output, TemplateRef, ViewEncapsul
 @Component({
   selector: 'app-modal',
   templateUrl: './modal.component.html',
-  styleUrls: ['./modal.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
 export class ModalComponent {

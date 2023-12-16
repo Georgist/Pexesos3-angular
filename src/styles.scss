@@ -3,6 +3,8 @@
 @use "sass/partials/animations" as *;
 @use "sass/partials/base" as *;
 
+@use "../src/app/components/modal/modal.component";
+
 @keyframes fadeIn {
   from {
     opacity: 0;
