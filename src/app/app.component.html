@@ -47,12 +47,27 @@
     <br>
     <table>
       <tr>
+        <th>Difficulty:</th>
+        <td>
+          <strong>{{ headerService.currentDifficulty }}</strong>
+        </td>
+      </tr>
+      <tr>
+        <th>Pairs matched:</th>
+        <td>
+          <strong>{{ pairsService.currentLength }}<i class="slash">/</i>{{ pairsService.initialLength }}</strong>
+        </td>
+      </tr>
+      <tr>
+        <th></th>
+        <td></td>
+      </tr>
+      <tr>
         <th>Moves:</th>
         <td>
           <strong>{{ movesService.movesDisplay }}</strong>
         </td>
       </tr>
-      <!-- TODO stop or complete the observable for timerDisplay -->
       <tr>
         <th>Time:</th>
         <td>

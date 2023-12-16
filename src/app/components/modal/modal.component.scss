@@ -149,12 +149,17 @@ app-modal {
 
             th {
               text-align: left;
+              vertical-align: middle;
+              padding-top: 3px;
+              padding-bottom: 3px;
             }
 
             td {
               text-align: right;
-              width: 70px;
-              padding-bottom: 5px;
+              width: 80px;
+              padding-top: 3px;
+              padding-bottom: 3px;
+              vertical-align: middle;
             }
           }
         }

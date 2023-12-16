@@ -3,6 +3,7 @@ import {TimerService} from "./timer.service";
 import {StatesService} from "./states.service";
 import {MovesService} from "./moves.service";
 import {DataService} from "./data.service";
+import {PairsService} from "./pairs.service";
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,7 @@ export class ModalService {
     private timerService: TimerService,
     private statesService: StatesService,
     private movesService: MovesService,
+    private pairsService: PairsService,
   ) {}
 
   showRestartGameModal(){
@@ -42,5 +44,8 @@ export class ModalService {
     this.movesService.movesReset();
 
     this.dataService.resetAllData();
+
+    this.pairsService.initialLength = 0;
+    this.pairsService.currentLength = 0;
   }
 }

@@ -3,6 +3,15 @@
 @use "sass/partials/animations" as *;
 @use "sass/partials/base" as *;
 
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 html {
   height: 100%;
 }
@@ -18,20 +27,21 @@ body {
 
   &.hellfire-mode {
     background: url(assets/images/hellfire-bg.webp) top center;
+    animation: fadeIn 1s;
   }
 
   &::before {
-      display: none;
+    display: none;
 
-      @include extend('body', '.hellfire-mode') {
-        display: block;
-        content: '';
-        position: absolute;
-        inset: 0 0 0 0;
-        pointer-events: none;
-        background-color: rgba(0, 0, 0, 0.4);
-        z-index: -1;
-      }
+    @include extend('body', '.hellfire-mode') {
+      display: block;
+      content: '';
+      position: absolute;
+      inset: 0 0 0 0;
+      pointer-events: none;
+      background-color: rgba(0, 0, 0, 0.4);
+      z-index: -1;
+    }
   }
 }
 
@@ -55,32 +65,3 @@ const unsplashAPI = createApi({
     accessKey: 'knJ-dWwE3NuTuXTLmPlhlv9AsQytlb57-js_WfDBs_Y',
     fetch: nodeFetch,
 });*/
-
-// PEXESO
-//DONE create grid responsive layout of box items, 8 items in a row
-//DONE make each item flip on click with a picture on the back side
-//DONE each item needs to be generated through JS (or find some template engine??)
-//DONE each item has unique ID or name or number (data- attribute)
-//DONE there are pairs of items with the same ID
-//DONE if on click they match, they get "matched" class permanently
-//DONE get data attribute and by ID change the array of items(pexItems), wasChecked: true
-
-// Solution to generating the same IDs:
-//DONE generate array and duplicate it and then combine into two arrays
-
-//DONE create new data (createPexData())
-//DONE put it into array, twice as pairs
-//DONE shuffle the array
-//DONE set it into localStorage
-
-//Pseudo code for pexeso, 3 important methods:
-//DONE 1. When item is clicked, change isVisited(first visit) and isFlipped properties in an object (ONLY FOR ONE ITEM)
-//DONE 2. When they match, add isMatched for both (FOR MULTIPLE ITEMS)
-//NOT 3. When they DONT MATCH, change isFlipped for both (FOR MULTIPLE ITEMS)
-
-// LATER ======
-// Counter of pairs, Pairs left?
-//DONE Counter of moves
-//DONE Timer
-// Turns? (against computer)
-// Points?

@@ -1,5 +1,5 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import {TimerService} from "../../services/timer.service";
+import {ActivatedRoute, Params} from "@angular/router";
 
 @Component({
   selector: 'app-test',
@@ -8,6 +8,18 @@ import {TimerService} from "../../services/timer.service";
   encapsulation: ViewEncapsulation.None
 })
 export class TestComponent {
+  currentSnapshotParams!: any;
+  currentQueryParams!: any;
 
-  constructor(public timerService: TimerService) {}
+  constructor(private route: ActivatedRoute) {
+    this.currentSnapshotParams = this.route.snapshot.params['id'];
+
+    this.route.queryParamMap
+      .subscribe((params) => {
+          this.currentQueryParams = { ...params };
+          console.log(this.currentQueryParams.params);
+          console.log(this.currentQueryParams.params.ads);
+        }
+      );
+  }
 }

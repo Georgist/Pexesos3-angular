@@ -1,6 +1,7 @@
 import {Component, ViewEncapsulation} from '@angular/core';
 import {TimerService} from "../../services/timer.service";
 import {MovesService} from "../../services/moves.service";
+import {PairsService} from "../../services/pairs.service";
 
 @Component({
   selector: 'app-game-info-panel',
@@ -11,7 +12,8 @@ import {MovesService} from "../../services/moves.service";
 export class GameInfoPanelComponent {
 
   constructor(
-    public timerService: TimerService,
-    public movesService: MovesService,
+    protected timerService: TimerService,
+    protected movesService: MovesService,
+    protected pairsService: PairsService,
   ) {}
 }

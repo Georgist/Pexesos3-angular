@@ -33,7 +33,7 @@ export class AppComponentService {
     setTimeout(() => {
       this.modalService.showWonModal();
 
-      this.dataService.fanfareSound.volume = 0.7;
+      this.dataService.fanfareSound.volume = 0.6;
       this.dataService.fanfareSound.play();
     }, 350);
   }

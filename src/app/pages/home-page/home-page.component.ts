@@ -1,6 +1,8 @@
 import {Component, ViewEncapsulation} from '@angular/core';
 import {DataService} from "../../services/data.service";
 import {ModesService} from "../../services/modes.service";
+import {HeaderService} from "../../services/header.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-home-page',
@@ -12,8 +14,11 @@ export class HomePageComponent {
 
   constructor(
     protected dataService: DataService,
-    private modesService: ModesService
-  ) {}
+    private modesService: ModesService,
+    private headerService: HeaderService,
+  ) {
+    this.headerService.headerAdditionalContent = false;
+  }
 
   // TODO how to use gameModes or gameModesTypes here?
   setCurrentGameMode(gameMode: string) {

@@ -6,6 +6,7 @@ import {ModalService} from "./services/modal.service";
 import {StatesService} from "./services/states.service";
 import {MovesService} from "./services/moves.service";
 import {DataService} from "./services/data.service";
+import {PairsService} from "./services/pairs.service";
 
 @Component({
   selector: 'app-root',
@@ -24,6 +25,7 @@ export class AppComponent implements OnInit {
     public modalService: ModalService,
     public statesService: StatesService,
     private dataService: DataService,
+    protected pairsService: PairsService,
   ) {}
 
   ngOnInit() {
@@ -32,6 +34,8 @@ export class AppComponent implements OnInit {
 
   okStartNewGame() {
     // TODO unify this method with createNewGame() in header component
+    this.pairsService.currentLength = 0;
+
     this.statesService.resetGameIsTouched();
     this.timerService.timerReset();
     this.movesService.movesReset();

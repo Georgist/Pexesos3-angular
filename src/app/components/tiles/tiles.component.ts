@@ -7,6 +7,7 @@ import {StatesService} from "../../services/states.service";
 import {MovesService} from "../../services/moves.service";
 import {DataService} from "../../services/data.service";
 import {ModesService} from "../../services/modes.service";
+import {PairsService} from "../../services/pairs.service";
 
 @Component({
   selector: 'app-tiles',
@@ -23,89 +24,72 @@ export class TilesComponent {
     protected modesService: ModesService,
     public appComponentService: AppComponentService,
     private statesService: StatesService,
+    protected pairsService: PairsService,
   ) {}
 
-  updateVisitedItem(id: string | undefined, currentItem: HTMLElement) {
-    //let currentItemIndex = this.tilesService.pexData.findIndex(item => item.id === Number(id));
-
+  updateVisitedItem(currentItem: HTMLElement) {
     currentItem.classList.add("visited");
-    //this.tilesService.pexData[currentItemIndex].isVisited = true;
   }
 
-  updateMatchedItem(pairValue: string | undefined, matched = true) {
-    let currentItemIndexes = this.dataService.pexData.map((elem, index) => (elem.pairValue === pairValue ? index : '')).filter(String);
-
-    if (matched) {
+  flipItemBack() {
+    this.pairsService.currentPair.forEach((item) => {
       setTimeout(() => {
-        // TODO fix sound when more items match in short time, play sound every time
-        this.dataService.successSound.volume = 1;
-        this.dataService.successSound.play();
-      }, 200);
+        item.selector.classList.remove("flipped", "matched");
+      }, 1000);
+    });
+  }
 
-      this.dataService.currentPair.forEach((item: PexCurrentPair) => {
-        item.selector.classList.add("matched");
-        item.selector.classList.remove("flipped");
-      });
+  matchItem(item: any) {
+    setTimeout(() => {
+      // TODO fix sound when more items match in short time, play sound every time
+      this.dataService.successSound.volume = 0.8;
+      this.dataService.successSound.play();
+    }, 200);
 
-      let pairIndex = this.dataService.allPairs.indexOf(String(pairValue)); // TODO check this case
-      this.dataService.allPairs.splice(pairIndex, 1);
+    this.pairsService.currentPair.forEach((item: PexCurrentPair) => {
+      item.selector.classList.add("matched");
+      item.selector.classList.remove("flipped");
+    });
 
-      if (!this.dataService.allPairs.length) {
-        this.appComponentService.finishGame();
-      }
-    } else {
-      this.dataService.currentPair.forEach((item) => {
-        setTimeout(() => {
-          item.selector.classList.remove("flipped", "matched");
-          item.selector.setAttribute('data-clicked', 'false');
-        }, 1000);
-      });
-    }
+    this.pairsService.updateAllPairs(String(item.dataset?.['pairValue']))
 
-    for (let index in currentItemIndexes) {
-      this.dataService.pexData[index].isMatched = matched;
+    if (this.pairsService.allPairsIsEmpty) {
+      this.appComponentService.finishGame();
     }
   }
 
-  pairBoxes(item: any) { // TODO improve type in the future
+  pairItems(item: any) {
     if (item === null) {
       return;
     }
 
+    const flipSound = new Audio(this.tilesService.randomCardFlipSound);
+    flipSound.volume = .3;
+    flipSound.play();
+
     this.statesService.setGameIsTouched();
     this.movesService.movesIncrement();
 
-    const flipSound = new Audio(this.tilesService.randomCardFlipSound);
-    flipSound.volume = .4;
-    flipSound.play();
+    item.classList.add("flipped");
+    this.updateVisitedItem(item);
+    this.pairsService.updateCurrentPair(item);
 
-    if (item.dataset?.['clicked'] === 'false') {
-      item.classList.add("flipped");
-      item.setAttribute('data-clicked', 'true');
-
-      this.updateVisitedItem(item.dataset?.['id'], item);
-
-      if ((this.dataService.currentPair.length < 2)) {
-        this.dataService.currentPair.push({selector: item, pairValue: item.dataset?.['pairValue']});
-
-        let currentPairFull = this.dataService.currentPair.length === 2;
-        if (!currentPairFull) {
-          return;
-        }
-
-        let isPair = this.dataService.currentPair[0].pairValue === this.dataService.currentPair[1].pairValue;
-        if (isPair) {
-          this.updateMatchedItem(item.dataset?.['pairValue']);
-          this.dataService.currentPair = [];
-        } else if (!isPair && currentPairFull) {
-          this.updateMatchedItem(item.dataset?.['pairValue'], false);
-          this.dataService.currentPair = [];
-        }
-      }
+    if (!this.pairsService.currentPairIsFull) {
+      return;
+    }
+    if (this.pairsService.currentPairIsFull && this.pairsService.isPair) {
+      this.matchItem(item);
+      this.pairsService.resetCurrentPair();
+    }
+    if (this.pairsService.currentPairIsFull && !this.pairsService.isPair) {
+      this.flipItemBack();
+      this.pairsService.resetCurrentPair();
     }
   }
 }
 
-// when button "Start a new game" is clicked (header)
-// send variable into (app-classic-game-page)
-// and generate Pex items (app-pex-tiles)
+// STATES:
+// currentPair is empty or 1 item(continue filling)
+// currentPair is full
+  // - reset
+  // - make it match

@@ -1,8 +1,7 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject} from "rxjs";
-import {GameModesTypes} from "./data.service";
-import {AppComponentService} from "./app.component.service";
 
+// TODO create difficulty service??
 export enum GameDifficulty {
   easy = 12,
   medium = 24,
@@ -19,9 +18,6 @@ export class HeaderService {
 
   difficultySubject = new BehaviorSubject(GameDifficulty.easy);
   readonly difficulty$ = this.difficultySubject.asObservable();
-
-  constructor(protected appComponentService: AppComponentService) {}
-
 
   get headerAdditionalContent(): boolean {
     return this.headerContentToggle;

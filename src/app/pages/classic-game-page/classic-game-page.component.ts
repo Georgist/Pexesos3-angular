@@ -16,7 +16,7 @@ export class ClassicGamePageComponent implements AfterViewInit {
     protected headerService: HeaderService,
     protected dataService: DataService,
     private appComponentService: AppComponentService,
-    private modesService: ModesService
+    private modesService: ModesService,
   ) {
     this.modesService.currentGameMode = GameModesTypes.classic;
   }

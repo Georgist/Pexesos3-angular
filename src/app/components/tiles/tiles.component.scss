@@ -5,6 +5,7 @@
   grid-gap: 18px;
   position: relative;
   text-align: center;
+  user-select: none;
 
   app-tiles.medium-difficulty & {
     grid-template-columns: repeat(6, 1fr);

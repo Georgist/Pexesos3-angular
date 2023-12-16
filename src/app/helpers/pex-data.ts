@@ -3,24 +3,17 @@ import {GameModes} from "../services/data.service";
 
 // TODO perhaps move to Data service
 export class pexItem implements PexItem {
-  pairValue: string;
-  id: number;
-  imageUrl: string | string[];
-  isFlipped: boolean;
-  isVisited: boolean;
-  isMatched: boolean;
-
-  constructor(pairValue: string, id: number, imageUrl: string | string[], isFlipped = false, isVisited = false, isMatched = false) {
-    this.pairValue = pairValue;
-    this.id = id;
-    this.imageUrl = imageUrl;
-    this.isFlipped = isFlipped;
-    this.isVisited = isVisited;
-    this.isMatched = isMatched;
-  }
+  constructor(
+    public pairValue: string,
+    public id: number,
+    public imageUrl: string | string[],
+    public isFlipped = false,
+    public isVisited = false,
+    public isMatched = false,
+  ) {}
 }
 
-// TODO what is the best practice? capitalize with css or not
+// TODO I get error when name: GameModesTypes.classic,
 export const gameModesData: GameModes[] = [
   {
     //name: GameModesTypes.classic,
@@ -36,7 +29,7 @@ export const gameModesData: GameModes[] = [
   },
   {
     //name: GameModesTypes.payToWin,
-    name: 'pay-to-win',
+    name: 'payToWin',
     url: '/pay-to-win',
     customClass: 'disabled'
   },

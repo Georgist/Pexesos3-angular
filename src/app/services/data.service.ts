@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import {gameModesData, pexItem} from '../helpers/pex-data'
-import {PexCurrentPair, PexItem} from "../components/tiles/tiles.types";
-import {HelpersService} from "../helpers/helpers.service";
+import {PexItem} from "../components/tiles/tiles.types";
+import {generateRandomID, shuffle} from "../helpers/helpers";
 import {ModesService} from "./modes.service";
+import {PairsService} from "./pairs.service";
 
 // TODO what is the best practice? capitalize with css or not
 export enum GameModesTypes {
@@ -13,7 +14,6 @@ export enum GameModesTypes {
 }
 
 export interface GameModes {
-  //name: GameModesTypes;
   name: string;
   url: string;
   customClass: string;
@@ -25,8 +25,6 @@ export interface GameModes {
 export class DataService {
   gameModes: GameModes[] = gameModesData;
   pexData: PexItem[] = [];
-  currentPair: PexCurrentPair[] = [];
-  allPairs: string[] = [];
 
   successSound = new Audio('assets/sounds/success-effect.mp3');
   fanfareSound = new Audio('assets/sounds/fanfare-effect.mp3');
@@ -45,52 +43,31 @@ export class DataService {
     'assets/images/easy/4.png',
     'assets/images/easy/5.jpg',
     'assets/images/easy/6.jpg',
-    'assets/images/easy/1.jpg',
-    'assets/images/easy/2.jpg',
-    'assets/images/easy/3.jpg',
-    'assets/images/easy/4.png',
-    'assets/images/easy/5.jpg',
-    'assets/images/easy/6.jpg',
-    'assets/images/easy/1.jpg',
-    'assets/images/easy/2.jpg',
-    'assets/images/easy/3.jpg',
-    'assets/images/easy/4.png',
-    'assets/images/easy/5.jpg',
-    'assets/images/easy/6.jpg',
-    'assets/images/easy/1.jpg',
-    'assets/images/easy/2.jpg',
-    'assets/images/easy/3.jpg',
-    'assets/images/easy/4.png',
-    'assets/images/easy/5.jpg',
-    'assets/images/easy/6.jpg',
+    'assets/images/easy/7.jpg',
+    'assets/images/easy/8.jpg',
+    'assets/images/easy/9.jpg',
+    'assets/images/easy/10.jpg',
+    'assets/images/easy/11.jpg',
+    'assets/images/easy/12.jpg',
+    'assets/images/easy/13.jpg',
+    'assets/images/easy/14.jpg',
+    'assets/images/easy/15.jpg',
+    'assets/images/easy/16.jpg',
+    'assets/images/easy/17.jpg',
+    'assets/images/easy/18.jpg',
   ];
-
-/*  gameDifficultyMediumImages: string[] = [
-    'assets/images/medium/1.jpg',
-    'assets/images/medium/2.jpg',
-    'assets/images/medium/3.jpg',
-    'assets/images/medium/4.jpg',
-    'assets/images/medium/5.jpg',
-    'assets/images/medium/6.jpg',
-    'assets/images/medium/7.jpg',
-    'assets/images/medium/8.jpg',
-    'assets/images/medium/9.jpg',
-    'assets/images/medium/10.jpg',
-    'assets/images/medium/11.jpg',
-    'assets/images/medium/12.jpg'
-  ];*/
 
   gameHellfireModeImages: string = 'assets/images/f3.gif';
 
   constructor(
-    private helpersService: HelpersService,
     private modesService: ModesService,
+    private pairsService: PairsService,
   ) {}
 
   resetAllData(): void {
     this.pexData = [];
-    this.currentPair = [];
-    this.allPairs = [];
+    this.pairsService.resetCurrentPair();
+    this.pairsService.resetAllPairs();
   }
 
   createPexData(currentDifficulty: number) {
@@ -98,15 +75,15 @@ export class DataService {
 
     // TODO move this to data service, by "difficulty" parameter get appropriate data and amount of data
     for (let i = 0; i < (currentDifficulty / 2); i++) {  // divide by 2, we push object into array twice
-      let newPexDataItem;
+      let newPexDataItem: PexItem;
 
-      if(this.modesService.isHellfireMode) {
-        newPexDataItem = new pexItem(this.helpersService.generateRandomID(), i, this.gameHellfireModeImages);
+      if (this.modesService.isHellfireMode) {
+        newPexDataItem = new pexItem(generateRandomID(), i, this.gameHellfireModeImages);
       } else {
-        newPexDataItem = new pexItem(this.helpersService.generateRandomID(), i, this.gameClassicImages[i]);
+        newPexDataItem = new pexItem(generateRandomID(), i, this.gameClassicImages[i]);
       }
 
-      this.allPairs.push(newPexDataItem.pairValue);
+      this.pairsService.createInitialPairs(newPexDataItem.pairValue)
       this.pexData.push(newPexDataItem);
 
       // push identical data again, but with different IDs, to make pairs
@@ -115,8 +92,8 @@ export class DataService {
       this.pexData.push(duplicatedNewPexItem);
     }
 
-    let shuffleArray = this.helpersService.shuffle(this.pexData);
+    let shuffleArray = shuffle(this.pexData);
     this.pexData = shuffleArray;
+    console.log(this.pexData.map(item => console.log(item.imageUrl)));
   }
-
 }

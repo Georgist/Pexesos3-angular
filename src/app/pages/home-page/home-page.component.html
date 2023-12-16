@@ -1,7 +1,6 @@
 <div class="game-modes-wrapper">
   <span class="label">Choose a game mode:</span>
   <div class="game-modes">
-    <!-- TODO for loop to create all game modes??-->
     <a
       *ngFor="let mode of dataService.gameModes"
       routerLink="{{mode.url}}"

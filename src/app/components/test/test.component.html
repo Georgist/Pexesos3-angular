@@ -1,7 +1,11 @@
-<button (click)="this.timerService.timerStart()">Start</button>
+<button>Start</button>
 <br>
 <br>
-<button (click)="this.timerService.timerStop()">Stop</button>
+<button>Stop</button>
 <br>
 <br>
-<button (click)="this.timerService.timerReset()">Reset</button>
+<button>Reset</button>
+
+<br>
+<br>
+{{currentSnapshotParams | json}}
