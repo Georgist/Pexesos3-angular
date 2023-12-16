@@ -48,7 +48,7 @@ app-modal {
     //}
 
     body.hellfire-mode & {
-      background: url(/assets/images/hellfire-bg.webp) center center;
+      background: url(assets/images/hellfire-bg.webp) center center;
 
       &::before {
         display: block;
